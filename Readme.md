@@ -2,6 +2,9 @@
 
 A local, private interface for running DeepSeek language models on your own machine. All processing happens locally - files and queries never leave your computer.
 
+## Demo
+
+![Demo](resources/Untitled.jpg)
 ## Features
 
 - Run DeepSeek language models entirely on your local machine
@@ -146,7 +149,7 @@ deepseek-local/
 - style.css                 # CSS styling
 - requirements.txt          # Python dependencies
 - models/                   # Downloaded models
-³   - deepseek-coder-6.7b-instruct/  # Example model
+ï¿½   - deepseek-coder-6.7b-instruct/  # Example model
 - venv/                     # Python virtual environment
 ```
 
