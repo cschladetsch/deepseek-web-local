@@ -1,0 +1,70 @@
+/* Main container styling */
+.gradio-container {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Header styling */
+h1 {
+    color: #2a4365;
+    border-bottom: 2px solid #4299e1;
+    padding-bottom: 0.5rem;
+}
+
+/* Enhanced code block styling */
+.chatbot-custom pre {
+    background-color: #282c34 !important;
+    border-radius: 6px !important;
+    padding: 10px !important;
+    overflow-x: auto !important;
+    margin: 10px 0 !important;
+    border-left: 3px solid #61afef !important;
+}
+
+.chatbot-custom code {
+    font-family: "Courier New", Courier, monospace !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    white-space: pre !important;
+    color: #e6e6e6 !important;
+}
+
+/* Privacy notice styling */
+.privacy-notice {
+    background-color: #ebf8ff;
+    border-left: 4px solid #4299e1;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+/* System info panel styling */
+.system-info {
+    background-color: #f8fafc;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+/* Make sure the text area is more visible */
+textarea {
+    border: 1px solid #cbd5e0 !important;
+    background-color: #fff !important;
+}
+
+/* Focus effects */
+textarea:focus, input:focus {
+    border-color: #4299e1 !important;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5) !important;
+}
+
+/* Syntax highlighting colors */
+.codehilite .k { color: #c678dd !important; } /* Keyword */
+.codehilite .n { color: #e6e6e6 !important; } /* Name */
+.codehilite .o { color: #56b6c2 !important; } /* Operator */
+.codehilite .p { color: #e6e6e6 !important; } /* Punctuation */
+.codehilite .c1 { color: #7f848e !important; font-style: italic !important; } /* Comment */
+.codehilite .s { color: #98c379 !important; } /* String */
+.codehilite .m { color: #d19a66 !important; } /* Number */
+.codehilite .cp { color: #e5c07b !important; } /* Preprocessor */
+.codehilite .kt { color: #e5c07b !important; } /* Keyword.Type */
+.codehilite .kd { color: #c678dd !important; } /* Keyword.Declaration */

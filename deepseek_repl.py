@@ -6,6 +6,11 @@ import sys
 import platform
 import traceback
 from pathlib import Path
+import re
+import markdown
+from pygments import highlight
+from pygments.lexers import get_lexer_by_name
+from pygments.formatters import HtmlFormatter
 
 # Global variables for model and tokenizer
 model = None
@@ -146,7 +151,7 @@ def process_files(files):
     
     return file_context
 
-# Simple chatbot function
+# Simple chatbot function with improved code formatting
 def chat(message, history, files):
     global model, tokenizer
     
@@ -193,7 +198,21 @@ def chat(message, history, files):
         if not response or response.isspace():
             response = "I couldn't generate a meaningful response. Please try rephrasing your question."
         
-        return history + [(message, response)]
+        # Specifically detect C++ code
+        if "C++" in message or "c++" in message or "cpp" in message:
+            # Check if response contains code-like content
+            if re.search(r'#include|namespace|void\s+\w+|int\s+main', response):
+                # If there are no existing code blocks, wrap entire response in a C++ code block
+                if "```" not in response:
+                    response = f"```cpp\n{response}\n```"
+                # Otherwise, ensure code blocks are marked as C++
+                else:
+                    response = re.sub(r'```(\s*)', r'```cpp\n', response)
+        
+        # Use HTML for code highlighting to ensure proper display
+        html_response = markdown.markdown(response, extensions=['fenced_code', 'codehilite'])
+        
+        return history + [(message, html_response)]
         
     except Exception as e:
         print(f"Error generating response: {str(e)}")
@@ -214,20 +233,38 @@ def main():
     system_info = get_system_info()
     info_text = "\n".join([f"**{k}**: {v}" for k, v in system_info.items()])
     
-    # Create Gradio interface
-    with gr.Blocks(theme=gr.themes.Soft()) as demo:
-        gr.Markdown(f"# Christian's DeepSeek Local Interface - {os.environ.get('MODEL_NAME', 'Unknown Model')}")
-        gr.Markdown("All processing occurs locally on your machine. Uploaded files are never sent over the internet.")
+    # Create Gradio interface with improved styling and external CSS
+    with gr.Blocks(theme=gr.themes.Soft(), css="style.css") as demo:
+        # Header with improved styling
+        gr.Markdown(f"# DeepSeek Local Interface - {os.environ.get('MODEL_NAME', 'Unknown Model')}")
         
+        # Privacy notice with improved styling
+        gr.Markdown(
+            "**PRIVACY NOTICE**: All processing occurs locally on your machine. Uploaded files and queries never leave your computer.",
+            elem_classes="privacy-notice"
+        )
+        
+        # System information in a collapsible section with improved styling
         with gr.Accordion("System Information", open=False):
-            gr.Markdown(info_text)
+            gr.Markdown(info_text, elem_classes="system-info")
             gr.Markdown(f"**Model**: {os.environ.get('MODEL_NAME', 'Unknown')}")
-            gr.Markdown("**Privacy Notice**: All processing occurs locally. Files and queries never leave your machine.")
         
-        files = gr.File(file_count="multiple", label="Upload Files (Processed Locally)")
+        # File upload area with improved styling
+        files = gr.File(
+            file_count="multiple", 
+            label="Upload Files (Processed Locally)"
+        )
         
-        chatbot = gr.Chatbot(label="Chat", height=500)
+        # Chat interface with improved styling
+        chatbot = gr.Chatbot(
+            label="Chat",
+            height=500,
+            elem_classes="chatbot-custom",
+            render=True,
+            sanitize_html=False
+        )
         
+        # Input area with improved styling
         with gr.Row():
             with gr.Column(scale=6):
                 msg = gr.Textbox(
@@ -239,6 +276,9 @@ def main():
             with gr.Column(scale=1):
                 submit_btn = gr.Button("Submit")
                 clear_btn = gr.Button("Clear")
+        
+        # Help text
+        gr.Markdown("**TIP**: Press Enter to submit. For code questions, specify the programming language.")
         
         # Hook up the chat function to ensure Enter key works
         msg.submit(chat, [msg, chatbot, files], [chatbot])
@@ -252,6 +292,8 @@ def main():
     
     # Launch the interface
     demo.launch(server_name="127.0.0.1", server_port=port, share=False)
-
+    
 if __name__ == "__main__":
     main()
+
+# End of file: deepseek_repl.py
