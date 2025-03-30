@@ -139,15 +139,15 @@ You can customize the interface by editing:
 
 ```
 deepseek-local/
-ÃÄÄ install_deepseek.sh       # Installation script
-ÃÄÄ start_deepseek.sh         # Local startup script
-ÃÄÄ start_deepseek_network.sh # Network-accessible startup script
-ÃÄÄ deepseek_repl.py          # Main Python interface
-ÃÄÄ style.css                 # CSS styling
-ÃÄÄ requirements.txt          # Python dependencies
-ÃÄÄ models/                   # Downloaded models
-³   ÀÄÄ deepseek-coder-6.7b-instruct/  # Example model
-ÀÄÄ venv/                     # Python virtual environment
+- install_deepseek.sh       # Installation script
+- start_deepseek.sh         # Local startup script
+- start_deepseek_network.sh # Network-accessible startup script
+- deepseek_repl.py          # Main Python interface
+- style.css                 # CSS styling
+- requirements.txt          # Python dependencies
+- models/                   # Downloaded models
+³   - deepseek-coder-6.7b-instruct/  # Example model
+- venv/                     # Python virtual environment
 ```
 
 ## Dependencies
