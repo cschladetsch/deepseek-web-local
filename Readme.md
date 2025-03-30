@@ -19,7 +19,7 @@ A local, private interface for running DeepSeek language models on your own mach
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/deepseek-local.git
+   git clone https://github.com/cschladetsch/deepseek-local.git
    cd deepseek-local
    ```
 
